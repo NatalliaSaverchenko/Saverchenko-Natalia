@@ -140,6 +140,8 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
+  return str.replace(value, '')
+
   throw new Error('Not implemented')
 }
 
