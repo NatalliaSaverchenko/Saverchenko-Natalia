@@ -173,6 +173,8 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
+  return str.toLocaleUpperCase()
+
   throw new Error('Not implemented')
 }
 
