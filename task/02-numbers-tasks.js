@@ -87,7 +87,18 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   5*x = 0         => 0
  */
 function getLinearEquationRoot(a, b) {
-  throw new Error('Not implemented')
+  if (a != 0 && b != 0) {
+    return -b / a
+  }
+  if (a != 0 && b === 0) {
+    return 0
+  }
+  if (a === 0 && b === 0) {
+    return 'root is any number'
+  }
+  if (a === 0 && b != 0) {
+    return 'root is not existed'
+  }
 }
 
 /**
