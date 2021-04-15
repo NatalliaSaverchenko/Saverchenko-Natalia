@@ -53,7 +53,11 @@ function getCicleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
-function getAverage(value1, value2) {}
+function getAverage(value1, value2) {
+  let sum = value1 / Number.MAX_SAFE_INTEGER + value2 / Number.MAX_SAFE_INTEGER
+  let average = (sum / 2) * Number.MAX_SAFE_INTEGER
+  return average
+}
 
 /**
  * Returns a distance beetween two points by cartesian coordinates.
