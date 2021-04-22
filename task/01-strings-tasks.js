@@ -21,8 +21,6 @@
  */
 function concatenateStrings(value1, value2) {
   return value1.concat(value2)
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -38,8 +36,6 @@ function concatenateStrings(value1, value2) {
  */
 function getStringLength(value) {
   return value.length
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -57,8 +53,6 @@ function getStringLength(value) {
  */
 function getStringFromTemplate(firstName, lastName) {
   return `Hello, ${firstName} ${lastName}!`
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -73,8 +67,6 @@ function getStringFromTemplate(firstName, lastName) {
  */
 function extractNameFromTemplate(value) {
   return value.slice(7, -1)
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -89,8 +81,6 @@ function extractNameFromTemplate(value) {
  */
 function getFirstChar(value) {
   return value.charAt(0)
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -106,8 +96,6 @@ function getFirstChar(value) {
  */
 function removeLeadingAndTrailingWhitespaces(value) {
   return value.trim()
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -123,8 +111,6 @@ function removeLeadingAndTrailingWhitespaces(value) {
  */
 function repeatString(value, count) {
   return value.repeat(count)
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -141,8 +127,6 @@ function repeatString(value, count) {
  */
 function removeFirstOccurrences(str, value) {
   return str.replace(value, '')
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -158,8 +142,6 @@ function removeFirstOccurrences(str, value) {
  */
 function unbracketTag(str) {
   return str.substring(1, str.length - 1)
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -174,8 +156,6 @@ function unbracketTag(str) {
  */
 function convertToUpperCase(str) {
   return str.toLocaleUpperCase()
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -190,8 +170,6 @@ function convertToUpperCase(str) {
  */
 function extractEmails(str) {
   return str.split(';')
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -232,8 +210,6 @@ function getRectangleString(width, height) {
   let down_line =
     downleft_corner + line_x.repeat(width - 2) + downright_corner + '\n'
   return upper_line + middle_line + down_line
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -252,19 +228,29 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(
-    /([A-M])([a-m])|([N-Z])([n-z])/g,
-    function (match, p1, p2, p3, p4) {
-      switch (match) {
-        case p1:
-        case p2:
-          return str.fromCharCode(match.charCodeAt(0) + 13)
-        case p3:
-        case p4:
-          return str.fromCharCode(match.charCodeAt(0) - 13)
-      }
+  let resultStr = ''
+  const A_SMALL_CODE = 97
+  const N_SMALL_CODE = 109
+  const A_CAPITAL_CODE = 65
+  const N_CAPITAL_CODE = 77
+
+  for (let i = 0; i < str.length; i++) {
+    const letter = str[i].charCodeAt()
+    if (letter < 65 || letter > 122) {
+      resultStr += String.fromCharCode(letter)
+      continue
     }
-  )
+
+    const isIncreaseLetter =
+      (letter >= A_SMALL_CODE && letter <= N_SMALL_CODE) ||
+      (letter >= A_CAPITAL_CODE && letter <= N_CAPITAL_CODE)
+
+    resultStr += isIncreaseLetter
+      ? String.fromCharCode(letter + 13)
+      : String.fromCharCode(letter - 13)
+  }
+
+  return resultStr
 }
 
 /**
@@ -286,8 +272,6 @@ function isString(value) {
   } else {
     return false
   }
-
-  throw new Error('Not implemented')
 }
 
 /**
@@ -315,63 +299,32 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  let deck = [
-    'A♣',
-    '2♣',
-    '3♣',
-    '4♣',
-    '5♣',
-    '6♣',
-    '7♣',
-    '8♣',
-    '9♣',
-    '10♣',
-    'J♣',
-    'Q♣',
-    'K♣',
-    'A♦',
-    '2♦',
-    '3♦',
-    '4♦',
-    '5♦',
-    '6♦',
-    '7♦',
-    '8♦',
-    '9♦',
-    '10♦',
-    'J♦',
-    'Q♦',
-    'K♦',
-    'A♥',
-    '2♥',
-    '3♥',
-    '4♥',
-    '5♥',
-    '6♥',
-    '7♥',
-    '8♥',
-    '9♥',
-    '10♥',
-    'J♥',
-    'Q♥',
-    'K♥',
-    'A♠',
-    '2♠',
-    '3♠',
-    '4♠',
-    '5♠',
-    '6♠',
-    '7♠',
-    '8♠',
-    '9♠',
-    '10♠',
-    'J♠',
-    'Q♠',
-    'K♠',
+  const CARDS_FACE_VALUE = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
   ]
-  return deck.indexOf(value)
+  const CARDS_SUIT = ['♣', '♦', '♥', '♠']
+  const NUMBER_CARD_IN_ROW = CARDS_FACE_VALUE.length
 
-  throw new Error('Not implemented')
+  const cardSuit = value.slice(-1)
+  const cardSuitIndex = CARDS_SUIT.indexOf(cardSuit)
+  const cardIndex = CARDS_FACE_VALUE.findIndex((cardValue) =>
+    value.startsWith(cardValue)
+  )
+  const shiftCoficent = cardSuitIndex * NUMBER_CARD_IN_ROW
+
+  return cardIndex + shiftCoficent
 }
 
 module.exports = {
